@@ -2,6 +2,7 @@ function obtenerPreciosDeElectricidad() {
     fetch('https://bypass-cors-beta.vercel.app/?url=https://api.preciodelaluz.org/v1/prices/all?zone=PCB')
         .then(response => response.json())
         .then(data => {
+         console.log(response)
             const price = data.data[0].price; 
             document.getElementById('current-price').textContent = `${price} €/kWh`;
         })
