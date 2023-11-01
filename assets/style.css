@@ -1,0 +1,23 @@
+body {
+    font-family: 'Open sans', sans-serif;
+    background-color: rgb(233, 239, 244);
+    color: royalblue;
+    font-size:  1rem;
+    margin: 0;
+}
+
+.pictures {
+    width: 30%;
+  padding: 0;
+}
+
+.pictures li {
+    width: 40%;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.pictures li img {
+width: 100%;
+display: block;
+}
