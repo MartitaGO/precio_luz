@@ -25,3 +25,27 @@ function getBestAndWorstHour(arr) {
            console.log('Suma del consumo de todos los electrodomesticos:', sumaConsumo, 'W/H');
            let total = precioActual * sumaConsumo;
            console.log(('Suma del consumo total de los electrodomesticos') , total);
+
+//LOCALSTORAGE 
+
+     const localStorageData = {};
+
+if (precios.hasOwnProperty(horaActualStr)) {
+  
+  localStorageData.precioActual = precioActual;
+
+  for (const electrodomestico in electrodomesticos) {
+    
+    localStorageData[`costo${electrodomestico}`] = costoElectrodomestico;
+  }
+}
+
+localStorage.setItem('electrodomesticosData', JSON.stringify(localStorageData));
+
+const storedData = localStorage.getItem('electrodomesticosData');
+if (storedData) {
+  const parsedData = JSON.parse(storedData);
+  // Accede a los valores como parsedData.precioActual, parsedData.costoNevera, etc.
+}
+
+  });
