@@ -1,18 +1,79 @@
-body {
-    font-family: 'Open sans', sans-serif;
-    background-color: rgb(233, 239, 244);
-    color: royalblue;
-    font-size:  1rem;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:ital,wght@0,200;0,400;0,800;1,100;1,400&display=swap');
+
+
+*{
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none; 
+    
+} 
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: #efe9df;
+    color: #afba92;
+    font-size: 1rem;
+    height: 100vh;
+    margin: 6;
+   
 }
+
+body::before {
+    font-size: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    body {
+      background-color: #e4d9c7;
+    }
+    
+    body::before {
+      font-size: 3rem;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    body {
+      background-color: #e8d6b7;
+      color: white;
+    }
+    
+    body::before {
+      font-size: 4rem;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    body {
+      background-color: #eacd9c;
+      color: white;
+    }
+    
+    body::before {
+      font-size: 5rem;
+    }
+  }
+  
+h1 {
+    color: #808f59; 
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 
 .pictures {
     width: 30%;
-  padding: 0;
+  padding: 2rem;
 }
 
 .pictures li {
-    width: 40%;
+    width: 50%;
     display: inline-block;
     box-sizing: border-box;
 }
@@ -21,3 +82,7 @@ body {
 width: 100%;
 display: block;
 }
+
+
+
+
