@@ -64,7 +64,24 @@ h1 {
 }
 
 p {
-    font-style: italic;
+    font-style: oblique;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+   
+}
+
+h5 {
+    color:#808f59;
+    font-style: oblique;
+    bottom: 5px;
+    right: 10px;
+}
+
+.body {
+  font-size: 2rem;
 }
 
 .container {
@@ -75,6 +92,8 @@ p {
 .pictures {
     width: 30%;
   padding: 2rem;
+  color: #808f59;
+  font-style:normal;
 }
 
 .pictures li {
