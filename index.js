@@ -42,7 +42,7 @@ fetch("https://bypass-cors-beta.vercel.app/?url=https://api.preciodelaluz.org/v1
            console.log("Mejor hora: " + result.bestHour);
            console.log("Peor hora: " + result.worstHour); 
 
-         // Define el consumo de vatios por hora de cada electrodoméstico
+         /* Define el consumo de vatios por hora de cada electrodoméstico
         const electrodomesticos = {
         nevera: 19.5,         // Supongamos que una nevera consume 100W por hora
         vitroceramica: 13, // Supongamos que una vitrocerámica consume 2000W por hora
@@ -51,7 +51,7 @@ fetch("https://bypass-cors-beta.vercel.app/?url=https://api.preciodelaluz.org/v1
          lavadora: 62,       // Supongamos que una lavadora consume 800W por hora
         televisor: 18,     // Supongamos que un televisor consume 200W por hora
         ordenador: 30       // Supongamos que un ordenador consume 300W por hora
-        };
+        };*/
 
       
            
@@ -78,7 +78,7 @@ fetch("https://bypass-cors-beta.vercel.app/?url=https://api.preciodelaluz.org/v1
 
     fetchElectrodomesticosPrices()
 
-    console.log(electrodomesticos)
+    //console.log(electrodomesticos)
 
     /*let costoTotalElectrodomesticos = 0
     for (let electrodomestico in electrodomesticos) {
