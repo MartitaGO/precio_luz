@@ -1,7 +1,32 @@
+// Para guardar los datos en el localStorage
+const localStorageKey = 'fechaHoras';
+
+// Verificar si existe un elemento en el localStorage
+if (localStorage.getItem(localStorageKey) === null) {
+    // Realizar el fetch para obtener los datos
 fetch("https://bypass-cors-beta.vercel.app/?url=https://api.preciodelaluz.org/v1/prices/all?zone=PCB")
   .then((res) => res.json())
   .then((data) => {
-    //const precios = data.data;
+   
+   
+    // Guarda los datos en el localStorage
+    localStorage.setItem(localStorageKey, JSON.stringify(data));
+   })
+   .catch(error => {
+       console.error('Error al obtener los datos:', error);
+   });
+}
+let objeto = {
+   precio: 0,
+   fecha: '03-11-2023'
+  };
+  
+  // Guardar objeto en el localstorage
+  localStorage.setItem('fechaHora', JSON.stringify(objeto));
+
+// Obtén los datos del localStorage
+const data = JSON.parse(localStorage.getItem(localStorageKey));
+console.log('Datos obtenidos:', data);
 
     const precios = {
       "00-01": {
@@ -285,32 +310,3 @@ console.log("La peor hora del día para usar tus electrodomésticos es a las:", 
     };
 
     fetchElectrodomesticosPrices()
-
-    //console.log(electrodomesticos)
-
-    /*let costoTotalElectrodomesticos = 0
-    for (let electrodomestico in electrodomesticos) {
-            costoTotalElectrodomesticos += electrodomesticos[electrodomestico];
-       console.log(costoTotalElectrodomesticos)
-     }*/
-     const localStorageData = {};
-
-if (precios.hasOwnProperty(horaActualStr)) {
-  // ... otros cálculos
-  localStorageData.precioActual = precioActual;
-
-  for (const electrodomestico in electrodomesticos) {
-    // ... otros cálculos
-    localStorageData[`costo${electrodomestico}`] = costoElectrodomestico;
-  }
-}
-
-localStorage.setItem('electrodomesticosData', JSON.stringify(localStorageData));
-
-const storedData = localStorage.getItem('electrodomesticosData');
-if (storedData) {
-  const parsedData = JSON.parse(storedData);
-  // Accede a los valores como parsedData.precioActual, parsedData.costoNevera, etc.
-}
-
-  });
