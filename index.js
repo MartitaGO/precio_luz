@@ -1,32 +1,64 @@
-// Para guardar los datos en el localStorage
-const localStorageKey = 'fechaHoras';
+"use strict";
 
-// Verificar si existe un elemento en el localStorage
-if (localStorage.getItem(localStorageKey) === null) {
-    // Realizar el fetch para obtener los datos
-fetch("https://bypass-cors-beta.vercel.app/?url=https://api.preciodelaluz.org/v1/prices/all?zone=PCB")
-  .then((res) => res.json())
-  .then((data) => {
-   
-   
-    // Guarda los datos en el localStorage
-    localStorage.setItem(localStorageKey, JSON.stringify(data));
-   })
-   .catch(error => {
-       console.error('Error al obtener los datos:', error);
-   });
-}
-let objeto = {
-   precio: 0,
-   fecha: '03-11-2023'
+// Funcion que devuelve la fecha de hoy como string
+const hoy = () => {
+  const strHoy = new Date();
+  return `${strHoy.getDate()}-${strHoy.getMonth() + 1}-${strHoy.getFullYear()}`;
+};
+
+// precio de la luz de hoy
+const precioLuzHoy = async () => {
+  let datos = null;
+  try {
+    const response = await fetch(
+      "https://bypass-cors-beta.vercel.app/?url=https://api.preciodelaluz.org/v1/prices/all?zone=PCB"
+    );
+    if (!response.ok) {
+      throw new Error("Error con la API");
+    }
+    datos = await response.json();
+  } catch (error) {
+    // Este error tendríamos que mostrarlo en el HTML
+    console.error(error.message);
+  }
+  return datos;
+};
+
+// función principal
+const main = async () => {
+  // Ver si tengo datos en localstorage (localstoragePrecioLuz es null si no los tengo, null en JS es un valor Falsy)
+  const localstoragePrecioLuz = window.localStorage.getItem("precioLuz");
+
+  // Inicializo objeto precioLuz
+  const precioLuz = {
+    datos: localstoragePrecioLuz ? JSON.parse(localstoragePrecioLuz).datos : [],
+    fecha: localstoragePrecioLuz
+      ? JSON.parse(localstoragePrecioLuz).fecha
+      : null,
   };
-  
-  // Guardar objeto en el localstorage
-  localStorage.setItem('fechaHora', JSON.stringify(objeto));
 
-// Obtén los datos del localStorage
-const data = JSON.parse(localStorage.getItem(localStorageKey));
-console.log('Datos obtenidos:', data);
+  // Hago fetch si no tengo datos en localstorage (precioLuz.fecha === null) o si la fecha guardada en localstorage
+  // no coincide con la de hoy
+  if (precioLuz.fecha === null || precioLuz.fecha !== hoy()) {
+    // Pido datos a la API
+    const nuevoPrecioLuz = await precioLuzHoy();
+    // Si tengo datos
+    if (!nuevoPrecioLuz) {
+      // Este error tendríamos que mostrarlo en el HTML
+      console.error("No tengo datos");
+      return;
+    }
+    precioLuz.datos = nuevoPrecioLuz;
+    precioLuz.fecha = hoy();
+
+    // Gurdo los nuevos datos en localstorage
+    const jsonPrecioLuz = JSON.stringify(precioLuz);
+    window.localStorage.setItem("precioLuz", jsonPrecioLuz);
+  }
+  console.log("Puedes comenzar a ver el Precio de la Luz 💡", precioLuz);
+};
+
+main();
 
     const precios = {
       "00-01": {
@@ -267,7 +299,9 @@ for (const hora in precios) {
 }
 
 console.log("La mejor hora del día para usar tus electrodomésticos es a las:", mejorHora, "hs. Siendo el precio de:", mejorPrecio, "€/MWh.");
+
 console.log("La peor hora del día para usar tus electrodomésticos es a las:", peorHora, "hs. Siendo el precio de:", peorPrecio, "€/MWh.");
+
 
 // Los siguientes datos son 
     const electrodomesticos = {
