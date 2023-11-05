@@ -1,11 +1,9 @@
 "use strict";
-
 // Funcion que devuelve la fecha de hoy como string
 const hoy = () => {
   const strHoy = new Date();
   return `${strHoy.getDate()}-${strHoy.getMonth() + 1}-${strHoy.getFullYear()}`;
 };
-
 // precio de la luz de hoy
 const precioLuzHoy = async () => {
   let datos = null;
@@ -23,12 +21,10 @@ const precioLuzHoy = async () => {
   }
   return datos;
 };
-
 // función principal
 const main = async () => {
   // Ver si tengo datos en localstorage (localstoragePrecioLuz es null si no los tengo, null en JS es un valor Falsy)
   const localstoragePrecioLuz = window.localStorage.getItem("precioLuz");
-
   // Inicializo objeto precioLuz
   const precioLuz = {
     datos: localstoragePrecioLuz ? JSON.parse(localstoragePrecioLuz).datos : [],
@@ -36,7 +32,6 @@ const main = async () => {
       ? JSON.parse(localstoragePrecioLuz).fecha
       : null,
   };
-
   // Hago fetch si no tengo datos en localstorage (precioLuz.fecha === null) o si la fecha guardada en localstorage
   // no coincide con la de hoy
   if (precioLuz.fecha === null || precioLuz.fecha !== hoy()) {
@@ -50,15 +45,24 @@ const main = async () => {
     }
     precioLuz.datos = nuevoPrecioLuz;
     precioLuz.fecha = hoy();
-
-    // Guardo los nuevos datos en localstorage
+    // Gurdo los nuevos datos en localstorage
     const jsonPrecioLuz = JSON.stringify(precioLuz);
     window.localStorage.setItem("precioLuz", jsonPrecioLuz);
   }
-  console.log("Puedes comenzar a ver el Precio de la Luz 💡", precioLuz);
+  console.log("Puedes comenzar a ver el Precio de la Luz :bombilla:", precioLuz);
 };
-
 main();
+
+let mostrarFecha = document.getElementById('fecha');
+let mostrarReloj = document.getElementById('reloj');
+let fecha = new Date();
+let diaSemana = ['Domingo','Lunes', 'Martes','Miércoles','Jueves','Viernes','Sábado'];
+let mesAnyo = ['Enero','Febrero', 'Marzo','abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+mostrarFecha.innerHTML = `${diaSemana[fecha.getDay()]}, ${fecha.getDate()} de ${mesAnyo[fecha.getMonth()]} de ${fecha.getFullYear()}`;
+setInterval(()=>{
+  let hora = new Date();
+  mostrarReloj.innerHTML = hora.toLocaleTimeString();
+},1000);
 
 // Hacemos una comparación de la mejor y peor hora junto con el mejor y precio precio por hora
     const precios = {
@@ -314,7 +318,7 @@ let mejorPrecioElement = document.getElementById("mejorPrecio");
 function updateMejorPrecio(text) {
   mejorPrecioElement.innerHTML = text;
 }
-updateMejorPrecio ("Siendo el precio de: " + mejorPrecio + " €/MWh.")
+updateMejorPrecio ("Durante ese tramo de tiempo el precio es de: " + mejorPrecio + " €/MWh.")
 
 console.log("La peor hora del día para usar tus electrodomésticos es a las:", peorHora, "hs. Siendo el precio de:", peorPrecio, "€/MWh.");
 
@@ -331,12 +335,12 @@ let peorPrecioElement = document.getElementById("peorPrecio");
 function updatePeorPrecio(text) {
   peorPrecioElement.innerHTML = text;
 }
-updatePeorPrecio ("Siendo el precio de: " + peorPrecio + " €/MWh.")
+updatePeorPrecio ("Durante ese tramo de tiempo el precio es de: " + peorPrecio + " €/MWh.")
 
 // Sacamos el precio por hora según gasto de los electromésticos 
     const electrodomesticos = {
-        nevera: 0.00195,
-        vitroceramica: 0.02,
+        nevera: 0.00325,
+        vitroceramica: 0.002,
         lavavajillas: 0.0011,
         lavadora: 0.0062,
         televisor: 0.0018,
@@ -359,11 +363,18 @@ updatePeorPrecio ("Siendo el precio de: " + peorPrecio + " €/MWh.")
            let total = precioActual * sumaConsumo;
            console.log(('Suma del consumo total de los electrodomesticos') , total.toFixed(2), "€");
 
+           let precioMedioElement = document.getElementById("precioMedio");
+
+          function updatePrecioMedio(text) {
+            precioMedioElement.innerHTML = text;
+           }
+          updatePrecioMedio ("El precio total de la suma de estos electrodomésticos es de: " + total.toFixed(2) + " €/h.")
+
 
           // Calcular el costo de cada electrodoméstico
           for (const electrodomestico in electrodomesticos) {
             const consumoWatt = electrodomesticos[electrodomestico];
-            const costoElectrodomestico = (consumoWatt / 1000) * precioActual; // Convierte Watt a kW y calcula el costo
+            const costoElectrodomestico = (consumoWatt) * precioActual; // Convierte Watt a kW y calcula el costo
             console.log(`Costo de ${electrodomestico} por hora: ${costoElectrodomestico.toFixed(4)} €`);
           }
         } else {
