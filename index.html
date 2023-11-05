@@ -8,46 +8,15 @@
   </head>
   <body>
     
-    <div class="cursor"></div>
-
-    <script type="text/javascript">
-        const cursor = document.querySelector(".cursor");
-        var timeout;
-        
-        //follow cursor on mousemove
-        document.addEventListener("mousemove", (e) => {
-            let x = e.pageX;
-            let y = e.pageY;
-
-            cursor.style.top = y + "px";
-            cursor.style.left = x + "px";
-            cursor.style.display = "block";
-
-            
-            //cursor effects on mouse stopped
-            function mousseStopped(){
-                cursor.style.display = "none";
-            } 
-            clearTimeout(timeout);
-            timeout = setTimeout(mousseStopped, 5000);
-        });
-
-        //cursor effects on mouseout
-        document.addEventListener("mouseout", () => {
-            cursor.style.display = "none";
-        }) 
-        
-    </script>
- 
     <header>
       <h1>PRECIO DE LA LUZ</h1>
       <h2>Consulta el precio de la luz hoy</h2>
     </header>
 
     <main>
-      <h3>Precio de la luz por horas hoy</h3>
+      <h3 id="reloj">Precio de la luz por horas hoy</h3>
       <p id="fecha"></p>
-
+    
       <div id="articles">
 
         <article>
@@ -88,6 +57,8 @@
     </main>
     
     <script src="index.js"></script>
+    <script src="hora.js"></script>
+
 
   </body>
 </html>
