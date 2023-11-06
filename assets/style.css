@@ -24,19 +24,18 @@ body::before {
 
 header {
   text-align: center;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
 }
  
 h1{
   text-align: center;
-  padding: 1rem;
-  font-size: 2.5rem;
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
 }
 
 h2 {
   text-align: center;
-  padding: 1.5rem;
   font-size: 1.6rem;
 }
 
@@ -55,16 +54,15 @@ h4 {
 article {
   border: 4px solid rgb(250, 154, 70);
   border-radius: 10px;
-  padding: 2rem;
-  margin: 1rem;
-  font-style:inherit;
+  padding: 1.5rem;
+  margin: 1.5rem;
 }
 
-#articles {
+.articles {
   display: flex;
   flex-direction:column;
   text-align: center;
-  font-weight: bolder;
+  font-weight:normal;
 }
 
 figure {
@@ -76,12 +74,15 @@ figure {
 }
 
 img {
-  width: 160px;
-  padding: 4rem 0 0.8rem 0; 
+  width: 175px;
+  padding: 3.5rem 0 0.8rem 0; 
 }
 
 img:hover {
   background-color: coral;
+  position: relative;
+  padding: 22px 22px 22px 22px;
+  font-size: 1.125rem;
 }
 
 figcaption.titulos {
