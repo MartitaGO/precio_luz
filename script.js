@@ -348,14 +348,12 @@ function updateMejorHora(text) {
   mejorHoraElement.innerHTML = text;
 }
 
-updateMejorHora(
-  "El mejor momento del día para usar tus electrodomésticos es entre las: " +
+updateMejorHora("El mejor momento del día para usar tus electrodomésticos es entre las: " +
     mejorHora +
     " hs."
 );
 
 let mejorPrecioElement = document.getElementById("mejorPrecio");
-
 function updateMejorPrecio(text) {
   mejorPrecioElement.innerHTML = text;
 }
@@ -363,13 +361,6 @@ updateMejorPrecio(
   "Durante ese tramo de tiempo el precio es de: " + mejorPrecio + " €/MWh."
 );
 
-console.log(
-  "La peor hora del día para usar tus electrodomésticos es a las:",
-  peorHora,
-  "hs. Siendo el precio de:",
-  peorPrecio,
-  "€/MWh."
-);
 
 let peorHoraElement = document.getElementById("peorHora");
 
@@ -377,9 +368,7 @@ function updatePeorHora(text) {
   peorHoraElement.innerHTML = text;
 }
 
-updatePeorHora(
-  "El peor momento del día para usar tus electrodomésticos es entre las: " +
-    peorHora +
+updatePeorHora("El peor momento del día para usar tus electrodomésticos es entre las: " + peorHora +
     " hs."
 );
 
@@ -388,88 +377,131 @@ let peorPrecioElement = document.getElementById("peorPrecio");
 function updatePeorPrecio(text) {
   peorPrecioElement.innerHTML = text;
 }
-updatePeorPrecio(
-  "Durante ese tramo de tiempo el precio es de: " + peorPrecio + " €/MWh."
-);
 
-// Sacamos el precio por hora según gasto de los electromésticos
-const electrodomesticos = {
-  nevera: 0.00325,
-  vitroceramica: 0.02,
-  lavavajillas: 0.0011,
-  lavadora: 0.0062,
-  televisor: 0.0018,
-  ordenador: 0.003,
-};
+updatePeorPrecio("Durante ese tramo de tiempo el precio es de: " + peorPrecio + " €/MWh.");
+
+console.log("La peor hora del día para usar tus electrodomésticos es a las:", peorHora, "hs. Siendo el precio de:",
+  peorPrecio, "€/MWh.");
+
 
 // Según la hora y fecha actual, sacamos el coste total de la electricidad por hora de todos los anteriores electrodomésticos
 const fetchElectrodomesticosPrices = async () => {
   try {
+    // Sacamos el precio por hora según gasto de los electromésticos
+    const electrodomesticos = {
+      nevera: 0.00325,
+      vitroceramica: 0.02,
+      lavavajillas: 0.0011,
+      lavadora: 0.0062,
+      televisor: 0.0018,
+      ordenador: 0.003,
+    };
     const horaActual = new Date().getHours();
     const horaActualStr =
       horaActual.toString().padStart(2, "0") +
-      "-" +
-      (horaActual + 1).toString().padStart(2, "0");
+      "-" + (horaActual + 1).toString().padStart(2, "0");
 
     if (precios.hasOwnProperty(horaActualStr)) {
       const precioActual = precios[horaActualStr].price;
       const precioHoraActualElement =
         document.getElementById("precioHoraActual");
+
+        const mensaje = document.createElement("p");
+        mensaje.textContent=`Precio de la luz en la hora actual: ${precioActual} €/MWh`
+        precioHoraActualElement.appendChild(mensaje);
+
       console.log(`Precio de la luz en la hora actual: ${precioActual} €/MWh`);
 
       const sumaConsumo = Object.values(electrodomesticos).reduce(
-        (total, consumo) => total + consumo,
-        0
-      );
+        (total, consumo) => total + consumo, 0);
 
-      console.log(
-        "Suma del consumo de todos los electrodomesticos:",
-        sumaConsumo.toFixed(2),
-        "W/H"
-      );
+      let precioActualElement = document.getElementById("precioHoraActual");
+      function updatePrecioActual(text) {
+      mejorPrecioElement.innerHTML = text;
+} 
+
+updateMejorPrecio("Durante ese tramo de tiempo el precio es de: " + mejorPrecio + " €/MWh.");
+
+      console.log("Suma del consumo de todos los electrodomesticos:",
+        sumaConsumo.toFixed(2), "W/H");
       let total = precioActual * sumaConsumo;
-      console.log(
-        "Suma del consumo total de los electrodomesticos",
-        total.toFixed(2),
-        "€"
-      );
+      console.log("Suma del consumo total de los electrodomesticos",
+        total.toFixed(2),"€");
 
       let precioMedioElement = document.getElementById("precioMedio");
 
       function updatePrecioMedio(text) {
         precioMedioElement.innerHTML = text;
       }
-      updatePrecioMedio(
-        "El precio total de la suma de estos electrodomésticos es de: " +
-          total.toFixed(2) +
-          " €/h."
+      updatePrecioMedio("El precio total de la suma de estos electrodomésticos es de: " +
+          total.toFixed(2) + " €/h."
       );
+
+      const gastoAparato = (e) => {
+        
+          const aparatoSelecionado = e.currentTarget
+          console.log(aparatoSelecionado)
+          aparatoSelecionado.classList.toggle("hidden")
+          const pElementText = aparatoSelecionado.querySelector("p")
+          const nombreAparato = aparatoSelecionado.getAttribute("id")
+          const divElementText = aparatoSelecionado.querySelector("div")
+          const costoAparato = (electrodomesticos [nombreAparato] * precioActual).toFixed(4)
+         // Función para mostrar el consumo de cada electrodoméstico en el html
+
+function mostrarConsumo() {
+  const imagenes = document.querySelectorAll("img");
+   imagenes.forEach((imagen) => {
+      const consumo = imagen.getAttribute("data-consumo");
+      const elementoHTML = document.createElement("p");
+      elementoHTML.textContent = `Consumo: ${electrodomesticos} kWh/H`;
+      imagen.parentNode.insertBefore(elementoHTML, imagen.nextSibling);
+   });
+}
+  mostrarConsumo();
+pElementText.textContent = `Costo de ${nombreAparato} : ${costoAparato} €/h.`
+      }
+
+// const sumaConsumo = Object.values(electrodomesticos).reduce(
+ // (total, consumo) => total + consumo, 0);
+
+      const aparatos = document.querySelectorAll("li article");
+      for(const aparato of aparatos){
+        aparato.addEventListener("click", gastoAparato)
+      } } 
+  } catch (error) {
+    console.error("Error al obtener los precios:", error);
+  } };
+
+fetchElectrodomesticosPrices();
+
+/*
+LINEA 450 
+ //pElementText.textContent = `costo de ${nombreAparato} : ${electrodomesticos[nombreAparato] * precioActual} €/h.`
+         // pElementText.textContent = electrodomesticos[nombreAparato]* precioActual
+
+LINEA 453
+      // `Precio de la luz en la hora actual: ${precioActual} €/MWh`
+
+LINEA 460 MENSAJES JUNTOS ELECTRODOMESTICOS
 
       for (const electrodomestico in electrodomesticos) {
         if (electrodomesticos.hasOwnProperty(electrodomestico)) {
           const consumoWatt = electrodomesticos[electrodomestico];
           const costoElectrodomestico = consumoWatt * precioActual; // Convierte Watt a kW y calcula el costo
 
+          //Mensaje en HTML de los costos de cada electrodoméstico
           const precio = document.getElementById("mensajeContainer");
           const mensaje = document.createElement("mensajeContainer");
           mensaje.textContent = `Costo de ${electrodomestico} precio por hora: ${costoElectrodomestico.toFixed(
             4
           )} €`;
           precio.appendChild(mensaje);
+          precio.appendChild(document.createElement("br"));
 
           console.log(
-            `Costo de ${electrodomestico} por hora: ${costoElectrodomestico.toFixed(
-              4
-            )} €`
-          );
-        }
-      }
+            `Costo de ${electrodomestico} por hora: ${costoElectrodomestico.toFixed(4)} €`
+          ); }}
     } else {
       console.error("No se encontraron datos para la hora actual.");
-    }
-  } catch (error) {
-    console.error("Error al obtener los precios:", error);
-  }
-};
 
-fetchElectrodomesticosPrices();
+*/
