@@ -469,7 +469,7 @@ const imgs = document.querySelectorAll("img");
 const precioDiv = document.getElementById("precio");
 
 imgs.forEach((img, index) => {
-  img.addEventListener("click", () => {
+  img.addEventListener("hover", () => {
     const precio = precios[index];
     precioDiv.innerHTML = `El precio actual de ${
       img.alt
