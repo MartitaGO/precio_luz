@@ -37,12 +37,16 @@ h1{
 h2 {
   text-align: center;
   font-size: 1.6rem;
+}
 
+h2 p {
+  text-align: center;
+  font-size: 1.2rem;
 }
 
 h3 {
   text-align: center;
-  padding: 1rem;
+  padding: 0.5rem;
   font-size: 1.3rem;
 }
 
@@ -52,22 +56,12 @@ h4 {
   font-size: 1.3rem;
 }
 
-
 .h5 {
   display: flex;
-  flex-direction:column
+  flex-direction:column;
 }
 
 h5 {
-  border: 4px solid rgb(250, 154, 70);
-  border-radius: 10px;
-  padding: 1.5rem;
-  margin: 1.5rem;
-  font-weight:normal;
-  text-align: center;
-}
-
-article.mensajeContainer {
   border: 4px solid rgb(250, 154, 70);
   border-radius: 10px;
   padding: 1.5rem;
@@ -91,7 +85,7 @@ li {
 }
 
 img {
-  width: 175px;
+  width: 170px;
   padding: 3.5rem 0 0.8rem 0; 
 }
 
@@ -101,16 +95,15 @@ img:hover {
   padding: 22px 22px 22px 22px;
 }
 
-/* títulos que no van-pendiente.
-figcaption.titulos {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  font-size: 1rem;
-  padding: 2rem;
-} */
+article.hidden p {
+  display: none;
+}
+
+article p {
+  font-style: italic;
+  text-align: center;
+  font-size: 0.6rem;
+}
 
 @media (min-width: 768px) {
     body {
